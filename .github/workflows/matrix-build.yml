@@ -40,7 +40,7 @@ jobs:
           pf=${{ matrix.vendor }}-${{ matrix.arch }}
           vendor=${{ matrix.vendor }}
           arch=${{ matrix.arch }}
-          wget https://downloads.immortalwrt.org/${sf}${{ matrix.version }}/targets/${vendor}/${arch}/immortalwrt-imagebuilder-${pf}.Linux-x86_64.tar.xz -O ib.tar.zst
+          wget https://downloads.immortalwrt.org/${sf}${{ matrix.version }}/targets/${vendor}/${arch}/immortalwrt-imagebuilder-${pf}.Linux-x86_64.tar.zst -O ib.tar.zst
           mkdir ib
           tar -I zstd -xf ib.tar.xz --strip-components=1 -C ib
           cp -a ${{matrix.conf_dir}}/files ib/
