@@ -45,7 +45,7 @@ jobs:
           tar -I zstd -xf ib.tar.zst --strip-components=1 -C ib
           cp -a ${{matrix.conf_dir}}/files ib/
           cd ib
-          sed -e 's,https://downloads.immortalwrt.org,https://mirrors.shanghaitech.edu.cn/immortalwrt,g' -i.bak repositories.conf
+          # sed -e 's,https://downloads.immortalwrt.org,https://mirrors.shanghaitech.edu.cn/immortalwrt,g' -i.bak repositories.conf
           cd packages && curl -s https://api.github.com/repos/douglarek/luci-app-homeproxy/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | wget -qi - && cd -
           make image PROFILE=${{ env.PROFILE }} PACKAGES=${{ env.PACKAGES }} FILES=${{ env.FILES }}
           cd -
