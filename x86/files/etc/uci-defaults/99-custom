@@ -1,4 +1,0 @@
-uci -q batch << EOF
-set dhcp.@dnsmasq[0].rebind_protection="0"
-commit dhcp
-EOF
