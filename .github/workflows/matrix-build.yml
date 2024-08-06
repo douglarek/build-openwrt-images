@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 */12 * * *'
 
+permissions:
+  actions: write
+  contents: write
+
 jobs:
   build:
     name: Build ${{ matrix.target }}-${{ matrix.version }}
@@ -59,3 +63,25 @@ jobs:
           name: ${{ matrix.target }}-${{ matrix.version }}
           path: |
             ib/bin/targets/*/*/*
+
+      - name: Read release.md and use it as a body of new release
+        id: read_release
+        shell: bash
+        run: |
+          r=$(cat README.md)
+          r="${r//'%'/'%25'}"
+          r="${r//$'\n'/'%0A'}"
+          r="${r//$'\r'/'%0D'}"
+          echo "RELEASE_BODY=$r" >> $GITHUB_OUTPUT
+
+      - name: Publishing to GitHub Releases
+        uses: svenstaro/upload-release-action@v2
+        if: always()
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ib/bin/targets/*/*/*
+          tag: latest
+          file_glob: true
+          overwrite: true
+          body: |
+            ${{ steps.read_release.outputs.RELEASE_BODY }}
