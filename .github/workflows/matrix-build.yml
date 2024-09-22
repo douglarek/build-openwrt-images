@@ -53,7 +53,7 @@ jobs:
           cp -a ${{matrix.conf_dir}}/files ib/
           cd ib
           cd packages && curl -s https://api.github.com/repos/douglarek/mihomo-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep alpha | wget -qi - && cd -
-          cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -v unstable | xargs wget -qi - && cd -
+          cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -i unstable | xargs wget -qi - && cd -
           make image PROFILE=${{ env.PROFILE }} PACKAGES=${{ env.PACKAGES }} FILES=${{ env.FILES }} V=sc
           cd -
 
