@@ -52,8 +52,8 @@ jobs:
           tar -I zstd -xf ib.tar.zst --strip-components=1 -C ib
           cp -a ${{matrix.conf_dir}}/files ib/
           cd ib
-          cd packages && curl -s https://api.github.com/repos/douglarek/mihomo-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep alpha | wget -qi - && cd -
-          cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -i unstable | xargs wget -qi - && cd -
+          cd packages && curl -s https://api.github.com/repos/douglarek/mihomo-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "9999.*aarch64" | wget -qi - && cd -
+          cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "9999" | xargs wget -qi - && cd -
           make image PROFILE=${{ env.PROFILE }} PACKAGES=${{ env.PACKAGES }} FILES=${{ env.FILES }} V=sc
           cd -
 
