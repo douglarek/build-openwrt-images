@@ -9,7 +9,7 @@ Currently supported devices:
 
   included packages:
     ```
-    zoneinfo-asia autocore btop curl procps-ng-ps tcpdump vim-fuller openssh-sftp-server luci luci-i18n-cpufreq-zh-cn luci-compat luci-lib-base luci-lib-ipkg luci-theme-argon luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-alist-zh-cn dae-geosite dae-geoip dae luci-i18n-cloudflared-zh-cn luci-i18n-package-manager-zh-cn
+    zoneinfo-asia autocore btop curl procps-ng-ps tcpdump nano-full openssh-sftp-server luci luci-i18n-cpufreq-zh-cn luci-compat luci-lib-base luci-lib-ipkg luci-theme-argon luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-alist-zh-cn dae-geosite dae-geoip dae luci-i18n-cloudflared-zh-cn luci-i18n-package-manager-zh-cn
     ```
 
   user scripts:
