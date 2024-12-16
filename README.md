@@ -1,7 +1,7 @@
 # Build immortalwrt
 
 > [!WARNING]
-> This project will only build ImmortalWrt snapshot.
+> This project will only build ImmortalWrt snapshot. [Deprecated]
 
 Currently supported devices:
 
