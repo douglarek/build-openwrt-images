@@ -1,4 +1,4 @@
-name: Build Immortalwrt
+name: Build OpenWrt
 
 on:
   workflow_dispatch:
@@ -47,13 +47,16 @@ jobs:
           pf=${{ matrix.vendor }}-${{ matrix.arch }}
           vendor=${{ matrix.vendor }}
           arch=${{ matrix.arch }}
-          wget https://downloads.immortalwrt.org/${sf}${{ matrix.version }}/targets/${vendor}/${arch}/immortalwrt-imagebuilder-${pf}.Linux-x86_64.tar.zst -O ib.tar.zst
+          IB=$(curl -s https://api.github.com/repos/douglarek/build-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E 'openwrt-imagebuilder-' | head -1)
+          wget $IB -O ib.tar.zst
           mkdir ib
           tar -I zstd -xf ib.tar.zst --strip-components=1 -C ib
           cp -a ${{matrix.conf_dir}}/files ib/
           cd ib
-          cd packages && curl -s https://api.github.com/repos/douglarek/mihomo-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "9999.*aarch64" | wget -qi - && cd -
-          cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "9999" | xargs wget -qi - && cd -
+          wget https://downloads.openwrt.org/snapshots/targets/rockchip/armv8/openwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst
+          zstdcat openwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.zst | tar xOf - openwrt-imagebuilder-rockchip-armv8.Linux-x86_64/repositories | grep -v 'kmods/' > repositories
+          cat repositories
+          #cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "\-20" | xargs wget -qi - && cd -
           make image PROFILE=${{ env.PROFILE }} PACKAGES=${{ env.PACKAGES }} FILES=${{ env.FILES }} V=sc
           cd -
 
