@@ -32,7 +32,8 @@ jobs:
       - name: Install deps
         run: |
           sudo apt update
-          sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev python3-setuptools rsync swig unzip zlib1g-dev file wget qemu-utils genisoimage zstd
+          sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git \
+              libncurses5-dev libssl-dev python3-setuptools rsync swig unzip zlib1g-dev file wget qemu-utils genisoimage zstd tree
 
       - name: Load env file
         run: |
@@ -59,6 +60,7 @@ jobs:
           #cd packages && curl -s https://api.github.com/repos/douglarek/dae-openwrt/releases/latest | grep browser_download_url | cut -d : -f 2,3 | tr -d \" | grep -E "\-20" | xargs wget -qi - && cd -
           make image PROFILE=${{ env.PROFILE }} PACKAGES=${{ env.PACKAGES }} FILES=${{ env.FILES }} V=sc
           cd -
+          tree ib/bin
 
       - name: Publishing to GitHub Artifacts
         uses: actions/upload-artifact@v3
